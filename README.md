@@ -52,7 +52,7 @@ cd command-conqueror-CTF-frontend
 sudo python3 play.py
 ```
 
-The client will guide you through initial setup (pulling challenge images) and then open an interactive play session.
+The client will guide you through initial setup (pulling challenge images) and then open an interactive play session. Authentication is required.
 
 ---
 
@@ -94,15 +94,6 @@ Total points: **4350**
 
 ---
 
-## Env vars (backend)
-- `MONGODB_URI` — MongoDB connection string (required)
-- `PORT` — optional, default 10000
-
-> ⚠️ Never commit secrets to the repository. Use environment variables or secret stores.
-
----
-
-
 ## Contributing
 - Fork the repo, create a branch, open a PR.
 - Keep secrets out of commits. Run linters and basic tests before PR.
@@ -113,5 +104,3 @@ Total points: **4350**
 MIT — free for educational and non-commercial use.
 
 ---
-
-Happy hacking — keep it purple, keep it safe. 💜
