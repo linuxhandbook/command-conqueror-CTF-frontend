@@ -2,7 +2,7 @@
 
 <center>
 
-![Pixel Art](https://tenor.com/view/pengu-pudgy-penguin-pudgypenguins-red-flag-gif-17839697152039429780)
+![Pixel Art](https://media.tenor.com/95NWCn_bppQAAAAj/pengu-pudgy.gif)
 
 <center>
 
