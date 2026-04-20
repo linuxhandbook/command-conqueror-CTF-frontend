@@ -1,23 +1,29 @@
-# 🟣 YashzCTF — Purple Hacker CLI CTF
+# 🟣 Command Conqueror CTF — Linux Handbook CLI CTF
 
 <center>
 
-![Pixel Art](https://i.redd.it/2mqtkotrokn91.gif)
+![Pixel Art](https://tenor.com/view/pengu-pudgy-penguin-pudgypenguins-red-flag-gif-17839697152039429780)
 
 <center>
 
 ```text
-__   __        _         _____ ___________ 
-\ \ / /       | |       /  __ \_   _|  ___|
- \ V /__ _ ___| |__  ___| /  \/ | | | |_   
-  \ // _` / __| '_ \|_  / |     | | |  _|  
-  | | (_| \__ \ | | |/ /| \__/\ | | | |    
-  \_/\__,_|___/_| |_/___|\____/ \_/ \_|    
+  ______                                                                   __         ______                                                                                  
+ /      \                                                                 /  |       /      \                                                                                 
+/$$$$$$  |  ______   _____  ____   _____  ____    ______   _______    ____$$ |      /$$$$$$  |  ______   _______    ______   __    __   ______    ______    ______    ______  
+$$ |  $$/  /      \ /     \/    \ /     \/    \  /      \ /       \  /    $$ |      $$ |  $$/  /      \ /       \  /      \ /  |  /  | /      \  /      \  /      \  /      \ 
+$$ |      /$$$$$$  |$$$$$$ $$$$  |$$$$$$ $$$$  | $$$$$$  |$$$$$$$  |/$$$$$$$ |      $$ |      /$$$$$$  |$$$$$$$  |/$$$$$$  |$$ |  $$ |/$$$$$$  |/$$$$$$  |/$$$$$$  |/$$$$$$  |
+$$ |   __ $$ |  $$ |$$ | $$ | $$ |$$ | $$ | $$ | /    $$ |$$ |  $$ |$$ |  $$ |      $$ |   __ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$    $$ |$$ |  $$/ $$ |  $$ |$$ |  $$/ 
+$$ \__/  |$$ \__$$ |$$ | $$ | $$ |$$ | $$ | $$ |/$$$$$$$ |$$ |  $$ |$$ \__$$ |      $$ \__/  |$$ \__$$ |$$ |  $$ |$$ \__$$ |$$ \__$$ |$$$$$$$$/ $$ |      $$ \__$$ |$$ |      
+$$    $$/ $$    $$/ $$ | $$ | $$ |$$ | $$ | $$ |$$    $$ |$$ |  $$ |$$    $$ |      $$    $$/ $$    $$/ $$ |  $$ |$$    $$ |$$    $$/ $$       |$$ |      $$    $$/ $$ |      
+ $$$$$$/   $$$$$$/  $$/  $$/  $$/ $$/  $$/  $$/  $$$$$$$/ $$/   $$/  $$$$$$$/        $$$$$$/   $$$$$$/  $$/   $$/  $$$$$$$ | $$$$$$/   $$$$$$$/ $$/        $$$$$$/  $$/       
+                                                                                                                        $$ |                                                  
+                                                                                                                        $$ |                                                  
+                                                                                                                        $$/                                                                  
 
          A sleek terminal-first Capture The Flag experience
 ```
 
-💜 Welcome to **YashzCTF** — a compact, terminal-native CTF platform with isolated Docker challenge environments and a lightweight Go backend.
+💜 Welcome to **Command Conqueror CTF** — a compact, terminal-native CTF platform with isolated Docker challenge environments and a lightweight Go backend, powered by Linux Handbook.
 
 ---
 
@@ -41,8 +47,8 @@ __   __        _         _____ ___________
 Requirements: Python 3.7+, Docker running, network access.
 
 ```bash
-git clone https://github.com/Yash09042004/YashzCTF.git
-cd YashzCTF
+git clone https://github.com/linuxhandbook/command-conqueror-CTF-frontend.git
+cd command-conqueror-CTF-frontend
 sudo python3 play.py
 ```
 
