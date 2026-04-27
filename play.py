@@ -388,7 +388,7 @@ def open_shell(level_name, level_num, user_id):
 def cleanup_level(level_name, level_num):
     """Remove container AND image after a level is cleared."""
     tag   = f"war{level_num}"
-    image = f"ghcr.io/yash09042004/ctf_challenge:{tag}"
+    image = f"ghcr.io/linuxhandbook/command-conqueror:{tag}"
     subprocess.call(f"docker rm -f {level_name} > /dev/null 2>&1", shell=True)
     subprocess.call(f"docker rmi {image} > /dev/null 2>&1", shell=True)
 
