@@ -216,7 +216,7 @@ def loader_animation():
 def pull_level(level):
     global levels_pulled
     tag   = f"war{level}"
-    image = f"ghcr.io/yash09042004/ctf_challenge:{tag}"
+    image = f"ghcr.io/linuxhandbook/command-conqueror:{tag}"
     for _ in range(3):
         if subprocess.call(f"docker pull {image} > /dev/null 2>&1", shell=True) == 0:
             levels_pulled += 1
