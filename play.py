@@ -215,7 +215,7 @@ def loader_animation():
 
 def pull_level(level):
     global levels_pulled
-    tag   = f"war{level}"
+    tag   = f"l{level}"
     image = f"ghcr.io/linuxhandbook/command-conqueror:{tag}"
     for _ in range(3):
         if subprocess.call(f"docker pull {image} > /dev/null 2>&1", shell=True) == 0:
@@ -362,8 +362,8 @@ def print_level_hud(level_num, user_id):
 
 # ── Docker helpers ───────────────────────────────────────────
 def start_container(level_name, level_num, user_id):
-    tag   = f"war{level_num}"
-    image = f"ghcr.io/yash09042004/ctf_challenge:{tag}"
+    tag   = f"l{level_num}"
+    image = f"ghcr.io/linuxhandbook/command-conqueror:{tag}"
     cmd   = (f"docker run -dit --hostname {user_id} --user root "
              f"--name {level_name} {image} tail -f /dev/null > /dev/null 2>&1")
     subprocess.call(cmd, shell=True)
@@ -378,7 +378,7 @@ def open_shell(level_name, level_num, user_id):
     if not container_running(level_name):
         subprocess.call(f"docker rm -f {level_name} > /dev/null 2>&1", shell=True)
         start_container(level_name, level_num, user_id)
-    os.system(f"docker exec -it {level_name} bash")
+    os.system(f"docker exec -it -w /LHB {level_name} sh")
     # docker exec can leave stdin in EOF state — restore it from the terminal
     try:
         sys.stdin = open("/dev/tty")
@@ -387,7 +387,7 @@ def open_shell(level_name, level_num, user_id):
 
 def cleanup_level(level_name, level_num):
     """Remove container AND image after a level is cleared."""
-    tag   = f"war{level_num}"
+    tag   = f"l{level_num}"
     image = f"ghcr.io/linuxhandbook/command-conqueror:{tag}"
     subprocess.call(f"docker rm -f {level_name} > /dev/null 2>&1", shell=True)
     subprocess.call(f"docker rmi {image} > /dev/null 2>&1", shell=True)
@@ -441,7 +441,7 @@ def interactive_level_shell(level_name, level_num, user_id):
                 time.sleep(0.3)
                 if new_level is not None and new_level > total_levels:
                     print_victory(user_id)
-                    input(f"  {DIM}Press {BCYAN}Enter{DIM} to exit...{RESET}")
+                    post_victory_loop(user_id)
                 return new_level
             else:
                 print(f"\r  {BRED}✘  Incorrect flag. Keep digging.{RESET}\n")
@@ -469,7 +469,46 @@ def interactive_level_shell(level_name, level_num, user_id):
 
     return level_num   # stay on same level if shell exits unexpectedly
 
-# ── Main ─────────────────────────────────────────────────────
+# ── Post-victory command loop ─────────────────────────────
+def post_victory_loop(user_id):
+    """Interactive prompt shown after all levels are cleared.
+    Supports: leaderboard, exit / quit / (Enter)
+    """
+    W = 58
+    print()
+    print(box_top(W))
+    print(box_line(cx(f"{BMAGENTA}{BOLD}  ◈  MISSION COMPLETE — COMMAND CENTRE  ◈  {RESET}", W), W))
+    print(box_sep(W))
+    cmds_v = [
+        (f"{BCYAN}leaderboard{RESET}", f"{DIM}View top-10 ranking{RESET}"),
+        (f"{BCYAN}exit{RESET}",        f"{DIM}Quit the program{RESET}"),
+    ]
+    for cmd, desc in cmds_v:
+        print(box_line(f"  {cmd}  —  {desc}", W))
+    print(box_bot(W))
+    print()
+
+    prompt = f"  {BGREEN}[WINNER]{RESET}{BCYAN}▶ {RESET}"
+    while True:
+        try:
+            raw = input(prompt).strip()
+        except (EOFError, KeyboardInterrupt):
+            print()
+            return
+
+        if not raw:
+            return
+
+        lower = raw.lower()
+
+        if lower == "leaderboard":
+            show_leaderboard()
+        elif lower in ("exit", "quit", "q"):
+            return
+        else:
+            print(f"\n  {BRED}▸{RESET}  Unknown command. "
+                  f"Try {BCYAN}leaderboard{RESET} or {BCYAN}exit{RESET}.\n")
+
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == "-r":
         if os.path.isfile(user_file_path):
@@ -500,7 +539,7 @@ def main():
     # Already completed all levels on a previous run
     if current_level > total_levels:
         print_victory(user_id)
-        input(f"  {DIM}Press {BCYAN}Enter{DIM} to exit...{RESET}")
+        post_victory_loop(user_id)
         return
 
     while current_level <= total_levels:
