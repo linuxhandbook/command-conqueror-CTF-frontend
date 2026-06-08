@@ -215,13 +215,7 @@ done
 The following accounts exist in the live database at level 0 (no levels solved yet).  
 Use any of these to play against the **deployed backend** after building images locally:
 
-| # | Username | Password |
-|---|----------|----------|
-| 1 | `kernel` | `Krn3l@21` |
-| 2 | `bash` | `B@sh#902` |
-| 3 | `rootx` | `R00t!x77` |
-| 4 | `tux` | `Tux@2026@` |
-| 5 | `sysadmin` | `Sy$@dM88` |
+<Test accounts: username-password> (refer to backend README.md for more details)
 
 > All five accounts have `score: 0` and `solvedLevels: []` — they start from Level 1.
 
