@@ -364,7 +364,11 @@ def print_level_hud(level_num, user_id):
 def start_container(level_name, level_num, user_id):
     tag   = f"l{level_num}"
     image = f"ghcr.io/linuxhandbook/command-conqueror:{tag}"
-    cmd   = (f"docker run -dit --hostname {user_id} --user root "
+    # Level 10 requires the player to start as tuxi_guest (not root)
+    # so the SUID privilege-escalation puzzle works correctly.
+    # All other levels run as root for unrestricted exploration.
+    container_user = "tuxi_guest" if level_num == 10 else "root"
+    cmd   = (f"docker run -dit --hostname {user_id} --user {container_user} "
              f"--name {level_name} {image} tail -f /dev/null > /dev/null 2>&1")
     subprocess.call(cmd, shell=True)
 
@@ -378,7 +382,9 @@ def open_shell(level_name, level_num, user_id):
     if not container_running(level_name):
         subprocess.call(f"docker rm -f {level_name} > /dev/null 2>&1", shell=True)
         start_container(level_name, level_num, user_id)
-    os.system(f"docker exec -it -w /LHB {level_name} sh")
+    # Level 10: exec as tuxi_guest so the SUID escalation puzzle is enforced
+    exec_user = "tuxi_guest" if level_num == 10 else "root"
+    os.system(f"docker exec -it -u {exec_user} -w /LHB {level_name} sh")
     # docker exec can leave stdin in EOF state — restore it from the terminal
     try:
         sys.stdin = open("/dev/tty")
